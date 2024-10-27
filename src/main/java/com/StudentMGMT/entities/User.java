@@ -10,7 +10,7 @@ public class User implements Serializable {
 	private String login;
 	private String email;
 	private String password;
-    private String role;  // New field for role
+    private String role; 
 	
     public UUID getId() {
         return id;

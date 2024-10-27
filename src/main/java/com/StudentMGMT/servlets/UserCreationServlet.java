@@ -8,6 +8,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.net.URLEncoder;
+import java.nio.charset.StandardCharsets;
 
 @WebServlet("/user-creation")
 public class UserCreationServlet extends HttpServlet {
@@ -34,10 +36,12 @@ public class UserCreationServlet extends HttpServlet {
         int result = userDao.registerUser(user, 8); 
 
         if (result > 0) {
-            System.out.println("User created successfully: " + user.getLogin());
             request.setAttribute("login", user.getLogin());
             request.setAttribute("password", user.getPassword());
-            request.getRequestDispatcher("/UserLogin.jsp").forward(request, response);
+            System.out.println("User created successfully: " + user.getLogin());
+            String encodedLogin = URLEncoder.encode(user.getLogin(), StandardCharsets.UTF_8.toString());
+            String encodedPassword = URLEncoder.encode(user.getPassword(), StandardCharsets.UTF_8.toString());
+            response.sendRedirect("login?newUserLogin=" + encodedLogin + "&newUserPassword=" + encodedPassword);
         } else {
             System.err.println("Failed to create user. Result: " + result);
             response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, "Error occurred while creating user.");

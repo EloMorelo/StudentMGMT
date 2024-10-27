@@ -23,13 +23,13 @@ public class CourseDao {
         try (Connection connection = DatabaseUtil.getConnection();
         	    PreparedStatement preparedStatement = connection.prepareStatement(SELECT_COURSES_BY_USER_SQL)) {
 
-        	    preparedStatement.setString(1, userId.toString());
+        		preparedStatement.setObject(1, userId);
 
         	    ResultSet resultSet = preparedStatement.executeQuery();
 
         	    while (resultSet.next()) {
         	        Course course = new Course();
-        	        course.setId(resultSet.getInt("id"));
+                    course.setId(resultSet.getObject("id", UUID.class));
         	        course.setName(resultSet.getString("name"));
         	        course.setDescription(resultSet.getString("description"));
         	        courses.add(course);

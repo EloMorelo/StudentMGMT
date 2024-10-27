@@ -1,0 +1,129 @@
+.container {
+    display: grid;
+    grid-template-columns: 200px 1fr 200px;
+    grid-gap: 20px;
+    padding: 20px;
+}
+
+.sidebar {
+    background-color: #f4f4f4;
+    padding: 20px;
+    border-radius: 10px;
+    height: 100vh;
+}
+
+.content {
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 10px;
+}
+
+.rightbar {
+    background-color: #f9f9f9;
+    padding: 20px;
+    border-radius: 10px;
+}
+
+.button-group {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.button-group button {
+    padding: 10px;
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    text-align: left;
+}
+
+.button-group button:hover {
+    background-color: #0056b3;
+}
+
+.day-chooser {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.day-chooser span {
+    font-size: 1.2em;
+    margin: 0 15px;
+    cursor: pointer;
+}
+
+.day-chooser .arrow {
+    font-size: 1.5em;
+    cursor: pointer;
+}
+
+/* Courses Section */
+.section {
+    display: none;
+}
+
+#courses-section {
+    display: block;
+}
+
+ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+ul li {
+    background-color: #e9ecef;
+    margin: 5px 0;
+    padding: 10px;
+    border-radius: 5px;
+}
+
+.rightbar h3 {
+    font-size: 1.5em;
+    margin-bottom: 10px;
+}
+
+.rightbar p {
+    font-size: 1em;
+}
+
+#grades-section {
+    display: none;
+}
+
+#grades-section h2 {
+    margin-bottom: 20px;
+}
+
+#events-section, #messages-section {
+    display: none;
+}
+
+#events-section h2, #messages-section h2 {
+    margin-bottom: 20px;
+}
+
+.rightbar .account-settings {
+    margin-top: 50px;
+}
+
+.rightbar button {
+    padding: 10px;
+    width: 100%;
+    background-color: #dc3545;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    text-align: center;
+    margin-top: 10px;
+}
+
+.rightbar button:hover {
+    background-color: #c82333;
+}

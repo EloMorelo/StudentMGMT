@@ -1,0 +1,78 @@
+        body {
+            display: flex;
+            min-height: 100vh;
+            margin: 0;
+            font-family: Arial, sans-serif;
+        }
+        .container {
+            display: flex;
+            width: 100%;
+        }
+        .sidebar {
+            width: 20%;
+            background-color: #f4f4f4;
+            padding: 20px;
+            box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
+        }
+        .content {
+            width: 60%;
+            padding: 20px;
+            text-align: center;
+        }
+	.rightbar {
+	    width: 20%;
+	    padding: 20px;
+	    background-color: #f3f3f3;
+	    border-left: 1px solid #ddd;
+	    text-align: center;
+	}
+	
+	.rightbar h3 {
+	    margin-bottom: 20px;
+	}
+	
+	.rightbar button {
+	    display: block;
+	    width: 80%;
+	    margin: 10px auto;
+	    padding: 10px;
+	    font-size: 16px;
+	    background-color: #4CAF50;
+	    color: white;
+	    border: none;
+	    border-radius: 5px;
+	    cursor: pointer;
+	}
+	
+	.rightbar button:hover {
+	    background-color: #45a049;
+	}
+
+        .button-group {
+            display: flex;
+            flex-direction: column;
+        }
+        .button-group button {
+            padding: 10px;
+            margin-bottom: 10px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            cursor: pointer;
+            border-radius: 5px;
+        }
+        .button-group button:hover {
+            background-color: #45a049;
+        }
+        .day-chooser {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+        .arrow {
+            cursor: pointer;
+            font-size: 20px;
+            font-weight: bold;
+            user-select: none;
+        }

@@ -15,12 +15,19 @@ public class UserDao {
 	public int registerUser(User user, int passwordLength) {
 	    String INSERT_USERS_SQL = "INSERT INTO Users (id, login, password, email, role) VALUES (?, ?, ?, ?, ?);";
 	    int result = 0;
+	    
+
+	    
 	    try (Connection connection = DatabaseUtil.getConnection()) {
 	        connection.setAutoCommit(false);
 
 	        UUID userId = UUID.randomUUID();
 	        String userLogin = generateUserLogin(user);
 	        String generatedPassword = generateRandomPassword(passwordLength);
+	        
+	        
+	        user.setLogin(userLogin);
+	        user.setPassword(generatedPassword);
 	        
 	        System.out.println("Generated userId: " + userId);
 	        System.out.println("Generated userLogin: " + userLogin);
@@ -127,6 +134,47 @@ public class UserDao {
         }
 
         return user;
+    }
+    
+    public void UpdatePassword(UUID userId, String newPassword) {
+        String sql = "UPDATE users SET password = ? WHERE id = ?";
+        
+        try (Connection connection = DatabaseUtil.getConnection(); 
+             PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
+             
+            preparedStatement.setString(1, newPassword);
+            preparedStatement.setObject(2, userId);
+            preparedStatement.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+    
+    public void UpdateEmail(UUID userId, String newEmail) {
+        String sql = "UPDATE users SET email = ? WHERE id = ?";
+
+        try (Connection connection = DatabaseUtil.getConnection(); 
+             PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
+
+            preparedStatement.setString(1, newEmail);
+            preparedStatement.setObject(2, userId);
+            preparedStatement.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+    
+    public void DeleteUser (UUID userId) {
+    	String sql = "DELETE FROM users WHERE id = ?";
+        
+        try (Connection connection = DatabaseUtil.getConnection(); 
+             PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
+             
+            preparedStatement.setObject(1, userId);
+            preparedStatement.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
     
     

@@ -4,35 +4,46 @@
 <head>
     <meta charset="UTF-8">
     <title>User Login</title>
-    <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/login.css">
 </head>
 <body>
+
+<div class="container">
     <h2>Login</h2>
     <form action="login" method="post">
-        <label for="login">Login:</label>
-        <input type="text" id="login" name="login" required>
-        <br>
-        <label for="password">Password:</label>
-        <input type="password" id="password" name="password" required>
-        <br>
+        <div class="input-group">
+            <label for="login">Login:</label>
+            <input type="text" id="login" name="login" required>
+        </div>
+        <div class="input-group">
+            <label for="password">Password:</label>
+            <input type="password" id="password" name="password" required>
+        </div>
         <button type="submit">Login</button>
     </form>
 
-    <h2>Admin Tools</h2>
-    <form action="user-creation" method="post">
-        <input type="hidden" name="role" value="Student">
-        <button type="submit">Create Student</button>
-    </form>
+    <div class="admin-tools">
+        <h2>Admin Tools</h2>
+        <form action="user-creation" method="post">
+            <input type="hidden" name="role" value="Student">
+            <button type="submit">Create Student</button>
+        </form>
 
-    <form action="user-creation" method="post">
-        <input type="hidden" name="role" value="Teacher">
-        <button type="submit">Create Teacher</button>
-    </form>
+        <form action="user-creation" method="post">
+            <input type="hidden" name="role" value="Teacher">
+            <button type="submit">Create Teacher</button>
+        </form>
+    </div>
 
-    <c:if test="${not empty login && not empty password}">
-    <h3>New User Created:</h3>
-    <p>Login: <strong>${login}</strong></p>
-    <p>Password: <strong>${password}</strong></p>
-</c:if>
+    <c:if test="${not empty param.newUserLogin and not empty param.newUserPassword}">
+        <div class="new-user-info">
+            <h3>New User Created:</h3>
+            <p>Login: <strong>${param.newUserLogin}</strong></p>
+            <p>Password: <strong>${param.newUserPassword}</strong></p>
+        </div>
+    </c:if>
+</div>
+
 </body>
 </html>
+

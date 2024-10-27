@@ -15,7 +15,7 @@ public class GradeDao {
 
 	public List<Grade> getGradesByUser(UUID userId) throws ClassNotFoundException {
         List<Grade> grades = new ArrayList<>();
-        String SELECT_GRADES_BY_USER_SQL = "SELECT id, user_id, course_id, score FROM Grades WHERE user_id = ?";
+        String SELECT_GRADES_BY_USER_SQL = "SELECT id, user_id, course_id, grade FROM Grades WHERE user_id = ?";
 
         try (Connection connection = DatabaseUtil.getConnection();
              PreparedStatement preparedStatement = connection.prepareStatement(SELECT_GRADES_BY_USER_SQL)) {

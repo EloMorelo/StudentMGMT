@@ -24,9 +24,15 @@ public class AuthenticationFilter implements Filter {
 
         HttpSession session = req.getSession(false);
         String requestURI = req.getRequestURI();
+        
+        if (requestURI.endsWith("/login") && session != null && session.getAttribute("user") != null) {
+            res.sendRedirect(req.getContextPath() + "/dashboard"); 
+            return;
+        }
 
         if (requestURI.endsWith("/login") || 
             requestURI.endsWith("/register") || 
+            requestURI.endsWith("/user-creation") || 
             requestURI.startsWith(req.getContextPath() + "/css/") || 
             requestURI.startsWith(req.getContextPath() + "/js/") || 
             requestURI.startsWith(req.getContextPath() + "/images/")) {

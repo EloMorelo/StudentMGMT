@@ -6,98 +6,57 @@
 <head>
     <meta charset="UTF-8">
     <title>Teacher Dashboard</title>
-    <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/style.css">
+    <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/teacher.css">
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 </head>
 <body>
-    <header>
-        <h1>Welcome, Teacher ${sessionScope.user.login}</h1>
-        <nav>
-            <ul>
-                <li><a href="${pageContext.request.contextPath}/teacherDashboard">Dashboard</a></li>
-                <li><a href="${pageContext.request.contextPath}/manageCourses">Manage Courses</a></li>
-                <li><a href="${pageContext.request.contextPath}/viewEvents">View Events</a></li>
-                <li><a href="${pageContext.request.contextPath}/logout">Logout</a></li>
-            </ul>
-        </nav>
-    </header>
-    <main>
-        <h2>My Courses</h2>
-        <div>
-            <input type="text" id="courseSearch" placeholder="Search courses..." />
+
+<div class="container">
+    <div class="sidebar">
+        <div class="button-group">
+            <button onclick="showSection('courses')">My Courses</button>
+            <button onclick="showSection('events')">Events</button>
+            <button onclick="showSection('messages')">Messages</button>
         </div>
-        <div id="courseList">
-            <c:if test="${empty courses}">
-                <p>You are not currently assigned to any courses.</p>
-            </c:if>
-            <c:forEach var="course" items="${courses}">
-                <div class="course-item" data-course-name="${course.name.toLowerCase()}">
-                    <h3>${course.name}</h3>
-                    <p>${course.description}</p>
-                    <a href="${pageContext.request.contextPath}/manageCourseDetails?courseId=${course.id}">Manage Course</a>
-                </div>
-            </c:forEach>
+    </div>
+
+    <div class="content">
+        <div id="courses-section" class="section" style="display: block;">
+            <!-- Day Chooser for Courses -->
+            <div class="day-chooser">
+                <span class="arrow" onclick="changeDay(-1)">&#8592;</span>
+                <span id="current-date">22.10.2024</span>
+                <span class="arrow" onclick="changeDay(1)">&#8594;</span>
+            </div>
+            <div id="courses-content">
+                <p>No courses scheduled for this day.</p>
+            </div>
         </div>
 
-        <h2>Upcoming Events</h2>
-        <div id="eventList">
-            <c:if test="${empty events}">
-                <p>No upcoming events scheduled.</p>
-            </c:if>
-            <c:forEach var="event" items="${events}">
-                <div class="event-item">
-                    <h3>${event.title}</h3>
-                    <p>${event.description}</p>
-                    <p>Date: ${event.date}</p>
-                    <a href="${pageContext.request.contextPath}/manageEventDetails?eventId=${event.id}">View Details</a>
-                </div>
-            </c:forEach>
+        <div id="events-section" class="section" style="display: none;">
+            <h2>Events</h2>
+            <p>Your upcoming events will be displayed here.</p>
         </div>
 
-        <h2>Student Performance Reports</h2>
-        <button id="loadReports">Load Reports</button>
-        <div id="reportList">
+        <div id="messages-section" class="section" style="display: none;">
+            <h2>Messages</h2>
+            <p>Your recent messages will be displayed here.</p>
         </div>
-    </main>
-    <footer>
-        <p> test</p>
-    </footer>
+    </div>
 
-    <script>
-        $(document).ready(function() {
-            $('#courseSearch').on('keyup', function() {
-                var value = $(this).val().toLowerCase();
-                $('.course-item').filter(function() {
-                    $(this).toggle($(this).data('course-name').includes(value));
-                });
-            });
-            $('#loadReports').on('click', function() {
-                $.ajax({
-                    url: '${pageContext.request.contextPath}/getStudentReports',
-                    method: 'GET',
-                    success: function(data) {
-                        $('#reportList').html('');
-                        if (data.length === 0) {
-                            $('#reportList').append('<p>No student performance reports available.</p>');
-                        } else {
-                            $.each(data, function(index, report) {
-                                var reportHtml = '<div class="report-item">' +
-                                    '<h3>Student: ' + report.studentName + '</h3>' +
-                                    '<p>Course: ' + report.courseName + '</p>' +
-                                    '<p>Grade: ' + report.grade + '</p>' +
-                                    '<a href="' + '${pageContext.request.contextPath}/viewStudentDetails?studentId=' + report.studentId + '">View Details</a>' +
-                                    '</div>';
-                                $('#reportList').append(reportHtml);
-                            });
-                        }
-                    },
-                    error: function() {
-                        alert('Error loading reports. Please try again later.');
-                    }
-                });
-            });
-        });
-    </script>
+    <div class="rightbar">
+    <h3>Account Options</h3>
+    <form action="${pageContext.request.contextPath}/account-settings" method="get" style="display: inline;">
+    <button type="submit" id="account-settings-btn">Account Settings</button>
+    </form>
+    <form action="${pageContext.request.contextPath}/logout" method="get" style="display: inline;">
+    <button type="submit" id="logout-btn">Logout</button>
+	</form>
+	</div>
+</div>
+
+<script src="${pageContext.request.contextPath}/js/dashboard.js"></script>
+
 </body>
 </html>
 

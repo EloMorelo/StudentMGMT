@@ -1,19 +1,20 @@
 package com.StudentMGMT.entities;
 
 import java.io.Serializable;
+import java.util.UUID;
 
 public class Course implements Serializable {
     private static final long serialVersionUID = 1L;
 
-    private int id;
+    private UUID id;
     private String name;
     private String description;
 
-    public int getId() {
+    public UUID getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(UUID id) {
         this.id = id;
     }
 

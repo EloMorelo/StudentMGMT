@@ -22,7 +22,6 @@
 
     <div class="content">
         <div id="courses-section" class="section" style="display: block;">
-            <!-- Day Chooser for Courses -->
             <div class="day-chooser">
                 <span class="arrow" onclick="changeDay(-1)">&#8592;</span>
                 <span id="current-date">22.10.2024</span>

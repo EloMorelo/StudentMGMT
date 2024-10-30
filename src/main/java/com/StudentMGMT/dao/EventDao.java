@@ -15,7 +15,7 @@ public class EventDao {
 
     public List<Event> getAllEvents() throws ClassNotFoundException {
         List<Event> events = new ArrayList<>();
-        String SELECT_ALL_EVENTS_SQL = "SELECT * FROM Events";
+        String SELECT_ALL_EVENTS_SQL = "SELECT * FROM events";
 
         try (Connection connection = DatabaseUtil.getConnection();
              PreparedStatement preparedStatement = connection.prepareStatement(SELECT_ALL_EVENTS_SQL);
@@ -23,7 +23,7 @@ public class EventDao {
 
             while (resultSet.next()) {
                 Event event = new Event();
-	            event.setId(UUID.fromString(resultSet.getString("id"))); // Convert to UUID
+	            event.setId(UUID.fromString(resultSet.getString("id"))); 
                 event.setTitle(resultSet.getString("title"));
                 event.setDescription(resultSet.getString("description"));
                 event.setDate(resultSet.getDate("date"));

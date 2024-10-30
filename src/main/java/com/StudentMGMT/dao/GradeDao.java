@@ -15,7 +15,7 @@ public class GradeDao {
 
 	public List<Grade> getGradesByUser(UUID userId) throws ClassNotFoundException {
         List<Grade> grades = new ArrayList<>();
-        String SELECT_GRADES_BY_USER_SQL = "SELECT id, user_id, course_id, grade FROM Grades WHERE user_id = ?";
+        String SELECT_GRADES_BY_USER_SQL = "SELECT id, user_id, course_id, grade FROM grades WHERE user_id = ?";
 
         try (Connection connection = DatabaseUtil.getConnection();
              PreparedStatement preparedStatement = connection.prepareStatement(SELECT_GRADES_BY_USER_SQL)) {
@@ -25,9 +25,9 @@ public class GradeDao {
             try (ResultSet resultSet = preparedStatement.executeQuery()) {
                 while (resultSet.next()) {
                     Grade grade = new Grade();
-                    grade.setId(UUID.fromString(resultSet.getString("id"))); // Convert to UUID
-                    grade.setUserId(UUID.fromString(resultSet.getString("user_id"))); // Convert to UUID
-                    grade.setCourseId(UUID.fromString(resultSet.getString("course_id"))); // Convert to UUID
+                    grade.setId(UUID.fromString(resultSet.getString("id"))); 
+                    grade.setUserId(UUID.fromString(resultSet.getString("user_id"))); 
+                    grade.setCourseId(UUID.fromString(resultSet.getString("course_id"))); 
                     grade.setGrade(resultSet.getString("grade")); 
                     grades.add(grade);
                 }

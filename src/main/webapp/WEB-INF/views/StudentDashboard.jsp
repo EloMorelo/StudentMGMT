@@ -23,15 +23,16 @@
 
     <div class="content">
         <div id="courses-section" class="section" style="display: block;">
-            <div class="day-chooser">
-                <span class="arrow" onclick="changeDay(-1)">&#8592;</span>
-                <span id="current-date">22.10.2024</span>
-                <span class="arrow" onclick="changeDay(1)">&#8594;</span>
-            </div>
-            <div id="courses-content">
-                <p>No courses scheduled for this day.</p>
-            </div>
-        </div>
+    <div class="day-chooser">
+        <span class="arrow" onclick="changeDay(-1)">&#8592;</span>
+        <span id="current-date">${currentDate}</span> 
+        <span class="arrow" onclick="changeDay(1)">&#8594;</span>
+    </div>
+
+    <div id="courses-content">
+        <jsp:include page="ClassListFragment.jsp" />
+    </div>
+</div>
 
         <div id="grades-section" class="section" style="display: none;">
             <h2>My Grades</h2>
@@ -53,17 +54,24 @@
     </div>
 
     <div class="rightbar">
-    <h3>Account Options</h3>
-    <form action="${pageContext.request.contextPath}/account-settings" method="get" style="display: inline;">
-    <button type="submit" id="account-settings-btn">Account Settings</button>
-    </form>
-    <form action="${pageContext.request.contextPath}/logout" method="get" style="display: inline;">
-    <button type="submit" id="logout-btn">Logout</button>
-	</form>
+        <h3>Account Options</h3>
+        <form action="${pageContext.request.contextPath}/account-settings" method="get" style="display: inline;">
+            <button type="submit" id="account-settings-btn">Account Settings</button>
+        </form>
+        <form action="${pageContext.request.contextPath}/logout" method="get" style="display: inline;">
+            <button type="submit" id="logout-btn">Logout</button>
+        </form>
+    </div>
 </div>
-</div>
+<script>
+console.log("Current date from server:", "${currentDate}"); 
+
+let currentDate = new Date("${currentDate}"); 
+
+console.log("Initialized current date:", currentDate);
+</script>
 
 <script src="${pageContext.request.contextPath}/js/dashboard.js"></script>
-
 </body>
 </html>
+

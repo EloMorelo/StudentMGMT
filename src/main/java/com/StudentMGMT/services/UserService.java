@@ -49,7 +49,7 @@ public class UserService {
     
     public List<User> getAllStudents() throws Exception {
         List<User> students = new ArrayList<>();
-        String query = "SELECT id, login, email FROM users WHERE role = 'student'";
+        String query = "SELECT id, login, email FROM users WHERE role = 'Student'";
         try (Connection connection = DatabaseUtil.getConnection();
              PreparedStatement statement = connection.prepareStatement(query);
              ResultSet rs = statement.executeQuery()) {

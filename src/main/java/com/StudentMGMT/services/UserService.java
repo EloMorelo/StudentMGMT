@@ -64,6 +64,23 @@ public class UserService {
         return students;
     }
     
+    public List<User> getAllTeachers() throws Exception {
+        List<User> students = new ArrayList<>();
+        String query = "SELECT id, login, email FROM users WHERE role = 'Teacher'";
+        try (Connection connection = DatabaseUtil.getConnection();
+             PreparedStatement statement = connection.prepareStatement(query);
+             ResultSet rs = statement.executeQuery()) {
+            while (rs.next()) {
+                User student = new User();
+                student.setId(rs.getObject("id", UUID.class));
+                student.setLogin(rs.getString("login"));
+                student.setEmail(rs.getString("email"));
+                students.add(student);
+            }
+        }
+        return students;
+    }
+    
 	public void DeleteUser(UUID userId) {
         userDao.DeleteUser(userId);
     }

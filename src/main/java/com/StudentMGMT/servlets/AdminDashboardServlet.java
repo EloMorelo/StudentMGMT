@@ -29,7 +29,8 @@ public class AdminDashboardServlet extends HttpServlet {
         try {
             List<User> students = userService.getAllStudents();
             request.setAttribute("students", students);
-
+            List<User> teachers = userService.getAllTeachers();
+            request.setAttribute("teachers", teachers);
             List<Group> groups = groupService.getAllGroups();
             request.setAttribute("groups", groups);
 
@@ -48,8 +49,12 @@ public class AdminDashboardServlet extends HttpServlet {
         try {
             if ("addStudentToGroup".equals(action)) {
                 addStudentToGroup(request, response);
+            } else if ("addTeacherToGroup".equals(action)) {
+            	addTeacherToGroup(request,response);
             } else if ("addClassToSchedule".equals(action)) {
                 addClassToSchedule(request, response);
+            } else if ("CreateAGroup".equals(action)) {
+            	CreateAGroup(request,response);
             } else {
                 response.sendRedirect("AdminDashboard.jsp");
             }
@@ -65,17 +70,30 @@ public class AdminDashboardServlet extends HttpServlet {
         groupService.addStudentToGroup(studentId, groupId);
         response.sendRedirect("admin-dashboard?action=getGroupsAndStudents&success=true");
     }
+    private void addTeacherToGroup(HttpServletRequest request, HttpServletResponse response) throws Exception {
+        UUID teacherId = UUID.fromString(request.getParameter("teacherId"));
+        UUID groupId = UUID.fromString(request.getParameter("groupId"));
+        groupService.addTeacherToGroup(teacherId, groupId);
+        response.sendRedirect("admin-dashboard?action=getGroupsAndTeachers&success=true");
+    }
 
     private void addClassToSchedule(HttpServletRequest request, HttpServletResponse response) throws Exception {
         UUID groupId = UUID.fromString(request.getParameter("groupId"));
         String className = request.getParameter("className");
         String building = request.getParameter("building");
         String room = request.getParameter("room");
+        UUID teacherId = UUID.fromString(request.getParameter("teacherId"));
         LocalDate date = LocalDate.parse(request.getParameter("date"));
         LocalTime startTime = LocalTime.parse(request.getParameter("startTime"));
         LocalTime endTime = LocalTime.parse(request.getParameter("endTime"));
 
-        classService.addClassToSchedule(groupId, className, building, room, date, startTime,endTime);
+        classService.addClassToSchedule(groupId, className, building, room, teacherId, date, startTime,endTime);
         response.sendRedirect("admin-dashboard?action=getClassSchedule&success=true");
+    }
+    private void CreateAGroup(HttpServletRequest request, HttpServletResponse response) throws Exception {
+    	String groupname = request.getParameter("GroupName");
+    	int year = Integer.parseInt(request.getParameter("GroupYear"));
+    	groupService.CreateGroup(groupname, year);
+        response.sendRedirect("admin-dashboard?action=CreateAGroup&success=true"); 
     }
 }

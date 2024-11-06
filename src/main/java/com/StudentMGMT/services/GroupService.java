@@ -38,5 +38,26 @@ public class GroupService {
             statement.executeUpdate();
         }
     }
-
+    
+    public void addTeacherToGroup(UUID teacherId, UUID groupId) throws Exception {
+        String query = "INSERT INTO teacher_group (teacher_group_id, teacher_id, group_id) VALUES (?, ?, ?)";
+        try (Connection connection = DatabaseUtil.getConnection();
+             PreparedStatement statement = connection.prepareStatement(query)) {
+            statement.setObject(1, UUID.randomUUID());
+            statement.setObject(2, teacherId);
+            statement.setObject(3, groupId);
+            statement.executeUpdate();
+        }
+    }
+    
+    public void CreateGroup(String name, int year) throws Exception {
+	    String query = "INSERT INTO groups (group_id, name, year) VALUES (?, ?, ?)";
+	    try (Connection connection = DatabaseUtil.getConnection();
+	             PreparedStatement statement = connection.prepareStatement(query)) {
+	    		statement.setObject(1,UUID.randomUUID());
+	    		statement.setString(2, name);
+	    		statement.setInt(3, year);
+	            statement.executeUpdate();
+	    }
+    }
 }

@@ -28,6 +28,23 @@
         </select>
         <button type="submit">Add to Group</button>
     </form>
+        <h2>Add Teacher to Group</h2>
+    <form action="${pageContext.request.contextPath}/admin-dashboard" method="POST">
+        <input type="hidden" name="action" value="addTeacherToGroup">
+        <label for="teacherId">Select Student:</label>
+        <select name="teacherId" id="teacherId" required>
+            <c:forEach var="teacher" items="${teachers}">
+                <option value="${teacher.id}">${teacher.login} (${teacher.email})</option>
+            </c:forEach>
+        </select>
+        <label for="groupId">Select Group:</label>
+        <select name="groupId" id="groupId" required>
+            <c:forEach var="group" items="${groups}">
+                <option value="${group.id}">${group.name}</option>
+            </c:forEach>
+        </select>
+        <button type="submit">Add to Group</button>
+    </form>
 
     <h2>Schedule a Class</h2>
     <form action="${pageContext.request.contextPath}/admin-dashboard" method="POST">
@@ -38,6 +55,11 @@
         <input type="text" name="building" id="building" required>
         <label for="room">Room:</label>
         <input type="text" name="room" id="room" required>
+        <select name="teacherId" id="teacherId" required>
+            <c:forEach var="teacher" items="${teachers}">
+                <option value="${teacher.id}">${teacher.login} (${teacher.email})</option>
+            </c:forEach>
+        </select>
         <label for="date">Date:</label>
         <input type="date" name="date" id="date" required>
         <label for="startTime">Start Time:</label>
@@ -52,8 +74,24 @@
         </select>
         <button type="submit">Add to Schedule</button>
     </form>
-
-
+    <h2>Create a Group</h2>
+    <form action="${pageContext.request.contextPath}/admin-dashboard" method="POST">
+    <input type="hidden" name="action" value="CreateAGroup">
+    <label for="GroupName">Group Name:</label>
+    <input type="text" name="GroupName" id="GroupName" required>
+    <label for="GroupYear">Group Year:</label>
+    <select name="GroupYear" id="GroupYear" required>
+        <% 
+            int currentYear = java.util.Calendar.getInstance().get(java.util.Calendar.YEAR);
+            for (int year = 2010; year <= currentYear; year++) { 
+        %>
+            <option value="<%= year %>"><%= year %></option>
+        <% 
+            } 
+        %>
+    </select>
+    <button type="submit">Add to Group</button>
+</form>
 
     <c:if test="${param.success == 'true'}">
         <p style="color: green;">Operation completed successfully!</p>

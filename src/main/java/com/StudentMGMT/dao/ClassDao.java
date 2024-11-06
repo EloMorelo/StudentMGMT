@@ -50,9 +50,9 @@ public class ClassDao {
 
     
     private static final String INSERT_CLASS_SCHEDULE_SQL = "INSERT INTO Class_Schedule " +
-            "(class_id, group_id, class_name, building, room, date, start_time, end_time) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
+            "(class_id, group_id, class_name, building, room, teacher_id, date, start_time, end_time) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
 
-    public void addClassToSchedule(UUID groupId, String className, String building, String room, LocalDate date, LocalTime startTime, LocalTime endTime) throws ClassNotFoundException {
+    public void addClassToSchedule(UUID groupId, String className, String building, String room, UUID teacherId, LocalDate date, LocalTime startTime, LocalTime endTime) throws ClassNotFoundException {
         try (Connection connection = DatabaseUtil.getConnection();
              PreparedStatement preparedStatement = connection.prepareStatement(INSERT_CLASS_SCHEDULE_SQL)) {
 
@@ -63,9 +63,10 @@ public class ClassDao {
             preparedStatement.setString(3, className);
             preparedStatement.setString(4, building);
             preparedStatement.setString(5, room);
-            preparedStatement.setObject(6, date);
-            preparedStatement.setObject(7, startTime);
-            preparedStatement.setObject(8, endTime);
+            preparedStatement.setObject(6, teacherId);
+            preparedStatement.setObject(7, date);
+            preparedStatement.setObject(8, startTime);
+            preparedStatement.setObject(9, endTime);
 
             preparedStatement.executeUpdate();
 
@@ -74,22 +75,34 @@ public class ClassDao {
         }
     }
     
-    public List<Class> getClassesByStudentAndDate(UUID userId, LocalDate date) {
+    public List<Class> getClassesByUserAndDate(UUID userId, LocalDate date, String role) {
         List<Class> classes = new ArrayList<>();
+        String query;
 
-        String query = """
-            SELECT c.schedule_id, c.class_name, c.building, c.room, c.date, c.start_time, c.end_time, c.group_id, c.teacher_id 
-            FROM class_schedule c 
-            JOIN student_group sg ON c.group_id = sg.group_id
-            WHERE sg.student_id = ? AND c.date = ?;
-        """;
-
+        if ("Student".equalsIgnoreCase(role)) {
+            query = """
+                SELECT c.schedule_id, c.class_name, c.building, c.room, c.date, c.start_time, c.end_time, c.group_id, c.teacher_id 
+                FROM class_schedule c 
+                JOIN student_group sg ON c.group_id = sg.group_id
+                WHERE sg.student_id = ? AND c.date = ?;
+            """;
+        } else if ("Teacher".equalsIgnoreCase(role)) {
+            query = """
+                SELECT c.schedule_id, c.class_name, c.building, c.room, c.date, c.start_time, c.end_time, c.group_id, c.teacher_id 
+                FROM class_schedule c 
+                JOIN teacher_group tg ON c.group_id = tg.group_id
+                WHERE tg.teacher_id = ? AND c.date = ?;
+            """;
+        } else {
+            throw new IllegalArgumentException("Invalid role specified: " + role);
+        }
         try (Connection connection = DatabaseUtil.getConnection();
              PreparedStatement statement = connection.prepareStatement(query)) {
 
             statement.setObject(1, userId);
             statement.setDate(2, Date.valueOf(date));
-            System.out.println("Fetching classes for student ID: " + userId + " on date: " + date);
+            System.out.println("Fetching classes for " + role + " ID: " + userId + " on date: " + date);
+
             ResultSet rs = statement.executeQuery();
             while (rs.next()) {
                 Class cls = new Class();
@@ -108,7 +121,9 @@ public class ClassDao {
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        System.out.println("Fetched classes" + classes);
+
+        System.out.println("Fetched classes: " + classes);
         return classes;
     }
+
 }

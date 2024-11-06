@@ -44,7 +44,7 @@ public class DashboardServlet extends HttpServlet {
             currentDate = LocalDate.parse(dateParam);
         }
 
-        List<Class> classesToday = classService.getClassesForStudentByDate(user.getId(), currentDate);
+        List<Class> classesToday = classService.getClassesByUserAndDate(user.getId(), currentDate, user.getRole());
         request.setAttribute("classes", classesToday);
         request.setAttribute("currentDate", currentDate.toString());
         request.setAttribute("grades", gradeService.getGradesByUser(user.getId()));
@@ -52,8 +52,11 @@ public class DashboardServlet extends HttpServlet {
 
         if ("XMLHttpRequest".equals(request.getHeader("X-Requested-With"))) {
             request.getRequestDispatcher("/WEB-INF/views/ClassListFragment.jsp").forward(request, response);
+        } else if("Teacher".equals(user.getRole())) {
+            RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/views/TeacherDashboard.jsp");
+            dispatcher.forward(request, response);
         } else {
-            RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/views/StudentDashboard.jsp");
+        	RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/views/StudentDashboard.jsp");
             dispatcher.forward(request, response);
         }
     }

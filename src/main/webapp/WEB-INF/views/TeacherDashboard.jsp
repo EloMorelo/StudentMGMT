@@ -21,15 +21,16 @@
     </div>
 
     <div class="content">
-        <div id="courses-section" class="section" style="display: block;">
-            <div class="day-chooser">
-                <span class="arrow" onclick="changeDay(-1)">&#8592;</span>
-                <span id="current-date">22.10.2024</span>
-                <span class="arrow" onclick="changeDay(1)">&#8594;</span>
-            </div>
-            <div id="courses-content">
-                <p>No courses scheduled for this day.</p>
-            </div>
+        <div id="courses-section" class="section" style="display: block">
+          <div class="day-chooser">
+            <span class="arrow" onclick="changeDay(-1)">&#8592;</span>
+            <span id="current-date">${currentDate}</span>
+            <span class="arrow" onclick="changeDay(1)">&#8594;</span>
+          </div>
+
+          <div id="courses-content">
+            <jsp:include page="ClassListFragment.jsp" />
+          </div>
         </div>
 
         <div id="events-section" class="section" style="display: none;">
@@ -55,7 +56,13 @@
 </div>
 
 <script src="${pageContext.request.contextPath}/js/dashboard.js"></script>
+    <script>
+      console.log("Current date from server:", "${currentDate}");
 
+      let currentDate = new Date("${currentDate}");
+
+      console.log("Initialized current date:", currentDate);
+    </script>
 </body>
 </html>
 

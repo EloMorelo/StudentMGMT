@@ -19,13 +19,13 @@ public class ClassService {
         return classDao.getAllClasses();
     }
     
-    public void addClassToSchedule(UUID groupId, String className, String building, String room, LocalDate date, LocalTime startTime, LocalTime endTime) throws ClassNotFoundException {
-        classDao.addClassToSchedule(groupId, className, building, room, date, startTime, endTime);
+    public void addClassToSchedule(UUID groupId, String className, String building, String room,UUID teacherId, LocalDate date, LocalTime startTime, LocalTime endTime) throws ClassNotFoundException {
+        classDao.addClassToSchedule(groupId, className, building, room, teacherId, date, startTime, endTime);
         
     }
     
-    public List<Class> getClassesForStudentByDate(UUID userId, LocalDate date) {
+    public List<Class> getClassesByUserAndDate(UUID userId, LocalDate date,String role) {
         
-        return classDao.getClassesByStudentAndDate(userId, date);
+        return classDao.getClassesByUserAndDate(userId, date , role);
     }
 }

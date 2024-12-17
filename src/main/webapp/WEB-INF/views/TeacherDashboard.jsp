@@ -16,6 +16,7 @@
         <div class="button-group">
             <button onclick="showSection('courses')">My Courses</button>
             <button onclick="showSection('events')">Events</button>
+            <button onclick="showSection('grade-students')">Grade students</button>
             <button onclick="showSection('messages')">Messages</button>
         </div>
     </div>
@@ -37,7 +38,10 @@
             <h2>Events</h2>
             <p>Your upcoming events will be displayed here.</p>
         </div>
-
+		<div id="grade-students-section" class="section" style="display: none;">
+            <h2>grade students</h2>
+            <p></p>
+        </div>
         <div id="messages-section" class="section" style="display: none;">
             <h2>Messages</h2>
             <p>Your recent messages will be displayed here.</p>

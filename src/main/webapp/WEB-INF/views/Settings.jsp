@@ -46,7 +46,8 @@
         
         <div class="form-section danger-zone">
             <h3>Admin Tools:</h3>
-            <form action="deleteAccount" method="post">
+            <form action="${pageContext.request.contextPath}/account-settings" method="post">
+                <input type="hidden" name="action" value="deleteAccount">
                 <button type="submit" class="delete-btn">Delete My Account</button>
             </form>
         </div>

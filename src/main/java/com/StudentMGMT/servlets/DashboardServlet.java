@@ -13,6 +13,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import com.StudentMGMT.entities.Grade;
 import com.StudentMGMT.entities.User;
 import com.StudentMGMT.services.ClassService;
 import com.StudentMGMT.services.CourseService;
@@ -45,6 +46,8 @@ public class DashboardServlet extends HttpServlet {
         }
 
         List<Class> classesToday = classService.getClassesByUserAndDate(user.getId(), currentDate, user.getRole());
+        List<Grade> myGrades = gradeService.getGradesByUser(user.getId());
+
         request.setAttribute("classes", classesToday);
         request.setAttribute("currentDate", currentDate.toString());
         request.setAttribute("grades", gradeService.getGradesByUser(user.getId()));

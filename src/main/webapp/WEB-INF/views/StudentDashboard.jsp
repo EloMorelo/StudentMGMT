@@ -38,11 +38,7 @@ charset=UTF-8" pageEncoding="UTF-8"%>
         </div>
 
         <div id="grades-section" class="section" style="display: none">
-          <h2>My Grades</h2>
-          <p>Your grades will be displayed here.</p>
-          <div id="grades-content">
-            <p>No grades available.</p>
-          </div>
+          <jsp:include page="GradeListFragment.jsp" />
         </div>
 
         <div id="events-section" class="section" style="display: none">

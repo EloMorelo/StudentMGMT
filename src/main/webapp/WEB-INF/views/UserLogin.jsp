@@ -5,6 +5,7 @@
     <meta charset="UTF-8">
     <title>User Login</title>
     <link rel="stylesheet" href="${pageContext.request.contextPath}/css/login.css">
+    <script src="https://www.google.com/recaptcha/enterprise.js?render=6LedP58qAAAAAMyhotIuE90PcdonjD6X3PZ7bvy6"></script>
 </head>
 <body>
 
@@ -24,14 +25,25 @@
 
     <div class="admin-tools">
         <h2>Admin Tools</h2>
-        <form action="user-creation" method="post">
+        <form id="demo-form" action="user-creation" method="post">
             <input type="hidden" name="role" value="Student">
-            <button type="submit">Create Student</button>
+            <button class="g-recaptcha"
+                    data-sitekey="6LedP58qAAAAAMyhotIuE90PcdonjD6X3PZ7bvy6"
+                    data-callback="onSubmit"
+                    data-action="submit">
+                Create Student
+            </button>
         </form>
 
-        <form action="user-creation" method="post">
+        <!-- Form for creating a Teacher -->
+        <form id="demo-form" action="user-creation" method="post">
             <input type="hidden" name="role" value="Teacher">
-            <button type="submit">Create Teacher</button>
+            <button class="g-recaptcha"
+                    data-sitekey="6LedP58qAAAAAMyhotIuE90PcdonjD6X3PZ7bvy6"
+                    data-callback="onSubmit"
+                    data-action="submit">
+                Create Teacher
+            </button>
         </form>
     </div>
 
@@ -43,7 +55,20 @@
         </div>
     </c:if>
 </div>
+<script>
+    function onSubmit(token) {
+        // Add the token to the form as a hidden input
+        var form = document.getElementById("demo-form");
+        var input = document.createElement("input");
+        input.type = "hidden";
+        input.name = "g-recaptcha-response";
+        input.value = token;
+        form.appendChild(input);
 
+        // Submit the form
+        form.submit();
+    }
+</script>
 </body>
 </html>
 

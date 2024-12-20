@@ -38,7 +38,11 @@ charset=UTF-8" pageEncoding="UTF-8"%>
         </div>
 
         <div id="grades-section" class="section" style="display: none">
+          <div id="grades-content">
           <jsp:include page="GradeListFragment.jsp" />
+<%--            <p>Loading grades...</p> <--%>
+<%--          </div>--%>
+          </div>
         </div>
 
         <div id="events-section" class="section" style="display: none">
@@ -55,22 +59,32 @@ charset=UTF-8" pageEncoding="UTF-8"%>
       <div class="rightbar">
         <h3>Account Options</h3>
         <form
-          action="${pageContext.request.contextPath}/account-settings"
-          method="get"
-          style="display: inline"
+                action="${pageContext.request.contextPath}/account-settings"
+                method="get"
+                style="display: inline"
         >
           <button type="submit" id="account-settings-btn">
             Account Settings
           </button>
         </form>
         <form
-          action="${pageContext.request.contextPath}/logout"
-          method="get"
-          style="display: inline"
+                action="${pageContext.request.contextPath}/logout"
+                method="get"
+                style="display: inline"
         >
           <button type="submit" id="logout-btn">Logout</button>
         </form>
+        <h4>Admin</h4>
+        <p>Click here to add classes to the schedule</p>
+        <form
+                action="${pageContext.request.contextPath}/admin-dashboard"
+                method="get"
+                style="display: inline"
+        >
+          <button type="submit" id="admin-dashboard-btn">Admin Dashboard</button>
+        </form>
       </div>
+
     </div>
     <script>
       console.log("Current date from server:", "${currentDate}");

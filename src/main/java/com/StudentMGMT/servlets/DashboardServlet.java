@@ -26,8 +26,7 @@ import com.StudentMGMT.entities.Class;
 public class DashboardServlet extends HttpServlet {
     private static final long serialVersionUID = 1L;
 
-    private ClassService classService = new ClassService();	
-    private GradeService gradeService = new GradeService();
+    private ClassService classService = new ClassService();
     private EventService eventService = new EventService();
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -46,11 +45,9 @@ public class DashboardServlet extends HttpServlet {
         }
 
         List<Class> classesToday = classService.getClassesByUserAndDate(user.getId(), currentDate, user.getRole());
-        List<Grade> myGrades = gradeService.getGradesByUser(user.getId());
 
         request.setAttribute("classes", classesToday);
         request.setAttribute("currentDate", currentDate.toString());
-        request.setAttribute("grades", gradeService.getGradesByUser(user.getId()));
         request.setAttribute("events", eventService.getUpcomingEventsByUser(user.getId()));
 
         if ("XMLHttpRequest".equals(request.getHeader("X-Requested-With"))) {

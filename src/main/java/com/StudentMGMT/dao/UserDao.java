@@ -169,7 +169,6 @@ public class UserDao {
         
         try (Connection connection = DatabaseUtil.getConnection(); 
              PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
-             
             preparedStatement.setObject(1, userId);
             preparedStatement.executeUpdate();
         } catch (SQLException e) {

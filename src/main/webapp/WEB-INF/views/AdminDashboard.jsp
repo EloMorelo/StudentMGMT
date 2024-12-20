@@ -5,7 +5,6 @@
 <html>
 <head>
     <title>Admin Dashboard</title>
-    <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/admin.css">
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <link
             rel="stylesheet"

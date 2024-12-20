@@ -2,19 +2,14 @@
 <%@ page session="true" %>
 
 <div>
-  <c:choose>
-    <c:when test="${not empty myGrades}">
+    <c:if test="${not empty grades}">
       <ul>
-        <c:forEach var="grades" items="${myGrades}">
-          <li>
-            <strong>${grades.name}</strong><br>
-            Grade: ${grades.grade} Crouse id: ${grades.course_id}<br>
-          </li>
+        <c:forEach var="grade" items="${grades}">
+          <li>${grade.courseName}: ${grade.grade}</li>
         </c:forEach>
       </ul>
-    </c:when>
-    <c:otherwise>
-      <p>No grades.</p>
-    </c:otherwise>
-  </c:choose>
+    </c:if>
+    <c:if test="${empty grades}">
+      <p>No grades available.</p>
+    </c:if>
 </div>

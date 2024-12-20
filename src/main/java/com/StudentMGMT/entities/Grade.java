@@ -10,6 +10,9 @@ public class Grade implements Serializable {
     private UUID userId;
     private UUID courseId;
     private String grade;
+    private String description;
+    private Integer weight;
+    private String courseName;
 
     public UUID getId() {
         return id;
@@ -42,4 +45,16 @@ public class Grade implements Serializable {
     public void setGrade(String grade) {
         this.grade = grade;
     }
+
+    public String getDescription() {return description;}
+
+    public void setDescription(String description) {this.description = description;}
+
+    public Integer getWeight() {return weight;}
+
+    public void setWeight(Integer weight) {this.weight = weight;}
+
+    public String getCourseName() {return courseName;}
+
+    public void setCourseName(String courseName) {this.courseName = courseName;}
 }

@@ -16,7 +16,7 @@ import com.StudentMGMT.services.UserService;
 public class LoginServlet extends HttpServlet {
     private static final long serialVersionUID = 1L;
     private UserService userService = new UserService();
-    
+
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/views/UserLogin.jsp");
         dispatcher.forward(request, response);

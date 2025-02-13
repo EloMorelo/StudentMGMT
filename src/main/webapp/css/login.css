@@ -104,3 +104,6 @@ button:hover {
     }
 }
 
+.error-message {
+    color: red;
+}

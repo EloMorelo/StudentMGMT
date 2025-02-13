@@ -35,7 +35,7 @@ public class LoginServlet extends HttpServlet {
                 response.sendRedirect(request.getContextPath() + "/dashboard");
             } else {
                 request.setAttribute("errorMessage", "Invalid login or password");
-                RequestDispatcher dispatcher = request.getRequestDispatcher("login.jsp");
+                RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/views/UserLogin.jsp");
                 dispatcher.forward(request, response);
             }
 

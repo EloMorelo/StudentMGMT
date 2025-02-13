@@ -23,6 +23,10 @@
         <button type="submit">Login</button>
     </form>
 
+    <c:if test="${not empty errorMessage}">
+        <div class="error-message">${errorMessage}</div>
+    </c:if>
+
     <div class="admin-tools">
         <h2>Admin Tools</h2>
         <form id="demo-form" action="user-creation" method="post">
@@ -35,7 +39,6 @@
             </button>
         </form>
 
-        <!-- Form for creating a Teacher -->
         <form id="demo-form" action="user-creation" method="post">
             <input type="hidden" name="role" value="Teacher">
             <button class="g-recaptcha"
@@ -57,7 +60,6 @@
 </div>
 <script>
     function onSubmit(token) {
-        // Add the token to the form as a hidden input
         var form = document.getElementById("demo-form");
         var input = document.createElement("input");
         input.type = "hidden";
@@ -65,7 +67,6 @@
         input.value = token;
         form.appendChild(input);
 
-        // Submit the form
         form.submit();
     }
 </script>
